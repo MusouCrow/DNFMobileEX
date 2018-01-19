@@ -14,7 +14,12 @@ public class Launcher : MonoBehaviour {
     }
 
     private void Result() {
+        EditorUtility.ClearProgressBar();
         EditorUtility.DisplayDialog("Message", "Completed!", "OK");
+    }
+
+    private void ShowBar(float process, int now, int max) {
+        EditorUtility.DisplayProgressBar("", string.Format("Loading...({0}/{1})", now, max), process);
     }
 
     private void Save(string path) {
@@ -47,9 +52,16 @@ public class Launcher : MonoBehaviour {
         
             if (filePath.Length != 0 && this.SaveFolderPanel().Length != 0) {
                 var info = new DirectoryInfo(filePath);
+                var files = info.GetFiles();
+                this.ShowBar(0, 0, files.Length);
 
-                foreach (var file in info.GetFiles()) {
-                    this.Save(file.FullName);
+                for (int i = 0; i < files.Length; i++) {
+                    if (files[i].Name.Substring(0, 1) == ".") {
+                        continue;
+                    }
+                    
+                    this.ShowBar((float)i / (float)files.Length, i, files.Length);
+                    this.Save(files[i].FullName);
                 }
 
                 this.Result();
@@ -57,5 +69,9 @@ public class Launcher : MonoBehaviour {
         }
 
         this.willOutputTexture = GUILayout.Toggle(this.willOutputTexture, "Output Texture");
+    }
+
+    protected void OnDestroy() {
+        EditorUtility.ClearProgressBar();
     }
 }
