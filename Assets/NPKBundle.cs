@@ -41,6 +41,7 @@ public class NPKBundle {
             writeTex.name = this.ToName(tex.name);
 
             this.texureMap[tex] = writeTex;
+            Texture2D.Destroy(copyTex);
         }
 
         return this.texureMap[tex];
@@ -117,5 +118,15 @@ public class NPKBundle {
                 }
             }
         }
+    }
+
+    public void Destroy() {
+        foreach (var texture in this.texureMap) {
+            Texture2D.Destroy(texture.Value);
+        }
+
+        this.texureMap = null;
+        this.assetBundle.Unload(true);
+        AssetBundle.Destroy(this.assetBundle);
     }
 }

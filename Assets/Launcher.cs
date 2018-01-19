@@ -23,14 +23,15 @@ public class Launcher : MonoBehaviour {
     }
 
     private void Save(string path) {
-        var bundle = new NPKBundle(path);
-        
         try {
+            var bundle = new NPKBundle(path);
+            
             if (this.willOutputTexture) {
                 bundle.WriteTexure();
             }
 
             bundle.WriteSprite();
+            bundle.Destroy();
         }
         catch {
             Debug.Log("error: " + path);
