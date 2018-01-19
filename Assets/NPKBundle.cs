@@ -115,6 +115,7 @@ public class NPKBundle {
                     this.CreateDirectory(path);
                     File.WriteAllText(path + name + ".json", json);
                     File.WriteAllBytes(path + name + ".png", bytes);
+                    Texture2D.DestroyImmediate(newTex, true);
                 }
             }
 
