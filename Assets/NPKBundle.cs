@@ -117,6 +117,8 @@ public class NPKBundle {
                     File.WriteAllBytes(path + name + ".png", bytes);
                 }
             }
+
+            DNFAtlasAsset.DestroyImmediate(asset, true);
         }
     }
 

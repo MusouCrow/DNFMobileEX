@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 using UnityEditor;
 
@@ -34,7 +35,6 @@ public class Launcher : MonoBehaviour {
             bundle.WriteSprite();
             bundle.Destroy();
             bundle = null;
-            GC.Collect();
         }
         catch {
             Debug.Log("error: " + path);
@@ -67,6 +67,11 @@ public class Launcher : MonoBehaviour {
                     */
                     this.ShowBar((float)i / (float)files.Length, i, files.Length);
                     this.Save(files[i].FullName);
+
+                    if (i % 100 == 0) {
+                        GC.Collect();
+                        Thread.Sleep(1000);
+                    }
                 }
 
                 this.Result();
