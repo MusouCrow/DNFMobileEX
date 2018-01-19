@@ -41,7 +41,7 @@ public class NPKBundle {
             writeTex.name = this.ToName(tex.name);
 
             this.texureMap[tex] = writeTex;
-            Texture2D.Destroy(copyTex);
+            Texture2D.DestroyImmediate(copyTex, true);
         }
 
         return this.texureMap[tex];
@@ -122,11 +122,12 @@ public class NPKBundle {
 
     public void Destroy() {
         foreach (var texture in this.texureMap) {
-            Texture2D.Destroy(texture.Value);
+            Texture2D.DestroyImmediate(texture.Key, true);
+            Texture2D.DestroyImmediate(texture.Value, true);
         }
 
-        this.texureMap = null;
+        this.texureMap.Clear();
         this.assetBundle.Unload(true);
-        AssetBundle.Destroy(this.assetBundle);
+        AssetBundle.DestroyImmediate(this.assetBundle, true);
     }
 }
