@@ -34,7 +34,6 @@ public class Launcher : MonoBehaviour {
 
             bundle.WriteSprite();
             bundle.Destroy();
-            bundle = null;
         }
         catch {
             Debug.Log("error: " + path);
