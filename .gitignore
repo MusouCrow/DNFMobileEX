@@ -19,3 +19,10 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+# Custom
+*.bytes
+*.bytes.meta
+*.npk
+*.npk.meta
+.vscode
