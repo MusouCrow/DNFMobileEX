@@ -17,6 +17,10 @@ public class NPKBundle {
     private string ToName(string path) {
         var pos = path.LastIndexOf('.');
 
+        if (pos == -1) {
+            return path;
+        }
+
         return path.Substring(0, pos);
     }
 
